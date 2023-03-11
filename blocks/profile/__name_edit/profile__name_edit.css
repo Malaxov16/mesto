@@ -1,0 +1,8 @@
+.profile_name_edit {
+    margin: 0;
+    padding: 0;
+    height: 39px;
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+}
