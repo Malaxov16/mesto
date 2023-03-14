@@ -1,8 +1,17 @@
 .elements {
     margin: 51px auto 0;
-    padding: 0;
+    padding: 0 200px;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     row-gap: 20px;
     column-gap: 17px;
+}
+
+@media screen and (max-width: 1000px) {
+    .elements {
+        margin: 36px 0 0;
+        padding: 0 19px;
+        grid-template-columns: 1fr;
+        justify-items: center;
+    }
 }

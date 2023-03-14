@@ -17,60 +17,73 @@
                     <div class="profile__profile-info">
                         <div class="profile_name_edit">
                             <p class="profile__name">Жак-Ив Кусто</p>
-                            <img src="./images/edit-button.png" alt="редактировать" class="profile__edit-button">
+                            <button type="button" type="button"  class="profile__edit-button"></button>
                         </div>
                         <p class="profile__job">Исследователь океана</p>
                     </div>
-                    <img src="./images/add-button.png" alt="добавить" class="profile__add-button">
+                    <button type="button" class="profile__add-button"></button>
                 </section>
                 <section class="elements">
                     <div class="element">
                         <img src="./images/vologda.jpg" alt="Вологда" class="element__image">
                         <div class="element__footer">
                             <h2 class="element__title">Вологда</h2>
-                            <button class="element__like">
+                            <button type="button" class="element__like">
                         </div>
                     </div>
                     <div class="element">
                         <img src="./images/cherepovets.jpg" alt="Череповец" class="element__image">
                         <div class="element__footer">
                             <h2 class="element__title">Череповец</h2>
-                            <button class="element__like">
+                            <button type="button" class="element__like">
                         </div>
                     </div>
                     <div class="element">
                         <img src="./images/andoma.jpg" alt="Андома гора" class="element__image">
                         <div class="element__footer">
                             <h2 class="element__title">Андома гора</h2>
-                            <button class="element__like">
+                            <button type="button" class="element__like">
                         </div>
                     </div>
                     <div class="element">
                         <img src="./images/belozersk.jpg" alt="Белозерск" class="element__image">
                         <div class="element__footer">
                             <h2 class="element__title">Белозерск</h2>
-                            <button class="element__like">
+                            <button type="button" class="element__like">
                         </div>
                     </div>
                     <div class="element">
                         <img src="./images/monastyr.jpg" alt="Кирилло-Белозерский монастырь" class="element__image">
                         <div class="element__footer">
                             <h2 class="element__title">Кирилло-Белозерский монастырь</h2>
-                            <button class="element__like">
+                            <button type="button" class="element__like">
                         </div>
                     </div>
                     <div class="element">
                         <img src="./images/ustug.jpg" alt="Великий Устюг" class="element__image">
                         <div class="element__footer">
                             <h2 class="element__title">Великий Устюг</h2>
-                            <button class="element__like">
+                            <button type="button" class="element__like">
                         </div>
                     </div>
                 </section>
             </main>
             <footer class="footer">
-                
+                &copy; 2023 Mesto Russia
             </footer>
+
         </div>
+        <div class="popup">
+            <div class="popup__container">
+                <h1 class="popup__title">Редактировать профиль</h1>
+                <button type="button" class="popup__closebutton"></button>
+                <form class="popup__form">                
+                    <input type="text" class="popup__field popup__field_name" name="Name" placeholder="Имя" required>
+                    <input type="text" class="popup__field popup__field_job" name="job" placeholder="Профессия" required>
+                    <input type="submit" class="popup__button" value="Сохранить">
+                </form>
+            </div>
+        </div>
+        <script src="./blocks/popup/script.js"></script>
     </body>
 </html>
