@@ -6,7 +6,7 @@
     grid-template-rows: 120px;
 }
 
-@media screen and (max-width: 1000px) {
+@media screen and (max-width: 1180px) {
     .profile {
         margin: 42px 0;
         padding: 0 19px;

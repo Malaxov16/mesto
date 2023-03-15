@@ -10,7 +10,7 @@
     box-sizing: border-box;
 }
 
-@media screen and (max-width: 1000px) {
+@media screen and (max-width: 1180px) {
     .header {
         margin: 0;
         padding: 0;

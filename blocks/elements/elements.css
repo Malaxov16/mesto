@@ -5,9 +5,10 @@
     grid-template-columns: repeat(3, 1fr);
     row-gap: 20px;
     column-gap: 17px;
+    box-sizing: border-box;
 }
 
-@media screen and (max-width: 1000px) {
+@media screen and (max-width: 1180px) {
     .elements {
         margin: 36px 0 0;
         padding: 0 19px;

@@ -8,7 +8,7 @@
     align-items: start;
 }
 
-@media screen and (max-width: 1000px) {
+@media screen and (max-width: 1180px) {
     .profile__profile-info {
         margin: 26px 0;
         width: 100%;
