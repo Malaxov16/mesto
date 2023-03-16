@@ -4,9 +4,10 @@
     padding: 0;
     width: 24px;
     height: 24px;
-    background-image: url(../../../images/edit-button.png);
-    background-size: cover;
-    background-color: #000;
+    background-image: url(../../../images/edit-button.svg);
+    background-size: 24px 24px;
+    background-repeat: no-repeat;
+    background-color: transparent;
     border: 0;
     cursor: pointer;
     transition: opacity 0.5s ease-in-out;
@@ -22,5 +23,7 @@
         margin-left: 10px;
         width: 18px;
         height: 18px;
+        background-size: 18px 18px;
+        background-repeat: no-repeat;
     }
 }

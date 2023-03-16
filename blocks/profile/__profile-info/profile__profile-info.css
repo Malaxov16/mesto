@@ -1,5 +1,5 @@
 .profile__profile-info {
-    margin: 22px 0 25px 30px;
+    margin: 22px 0 22px 30px;
     padding: 0;
     max-width: 336px;
     display: flex;
@@ -10,7 +10,7 @@
 
 @media screen and (max-width: 1180px) {
     .profile__profile-info {
-        margin: 26px 0;
+        margin: 26px 0 30px;
         width: 100%;
         align-items: center;
     }

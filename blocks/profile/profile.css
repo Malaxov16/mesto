@@ -3,12 +3,11 @@
     padding: 0 200px;
     display: grid;
     grid-template-columns: 120px 1fr 150px;
-    grid-template-rows: 120px;
 }
 
 @media screen and (max-width: 1180px) {
     .profile {
-        margin: 42px 0;
+        margin: 42px 0 0;
         padding: 0 19px;
         display: flex;
         flex-direction: column;

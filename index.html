@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ru">
     <head>
-        <meta charset="UTF8">
+        <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width initial-scale=1.0">
         <link rel="stylesheet" href="./pages/index.css">
         <title>Место</title>
@@ -16,56 +16,56 @@
                     <img src="./images/avatar.jpg" alt="аватар" class="profile__avatar">
                     <div class="profile__profile-info">
                         <div class="profile__name-edit">
-                            <p class="profile__name">Жак-Ив Кусто</p>
-                            <button type="button" class="profile__edit-button"></button>
+                            <h1 class="profile__name">Жак-Ив Кусто</h1>
+                            <button type="button" aria-label="Редактировать" class="profile__edit-button"></button>
                         </div>
                         <p class="profile__job">Исследователь океана</p>
                     </div>
-                    <button type="button" class="profile__add-button"></button>
+                    <button type="button" aria-label="Добавить" class="profile__add-button"></button>
                 </section>
                 <section class="elements">
-                    <div class="element">
+                    <article class="element">
                         <img src="./images/vologda.jpg" alt="Вологда" class="element__image">
                         <div class="element__footer">
                             <h2 class="element__title">Вологда</h2>
                             <button type="button" class="element__like"></button>
                         </div>
-                    </div>
-                    <div class="element">
+                    </article>
+                    <article class="element">
                         <img src="./images/cherepovets.jpg" alt="Череповец" class="element__image">
                         <div class="element__footer">
                             <h2 class="element__title">Череповец</h2>
                             <button type="button" class="element__like"></button>
                         </div>
-                    </div>
-                    <div class="element">
+                    </article>
+                    <article class="element">
                         <img src="./images/andoma.jpg" alt="Андома гора" class="element__image">
                         <div class="element__footer">
                             <h2 class="element__title">Андома гора</h2>
                             <button type="button" class="element__like"></button>
                         </div>
-                    </div>
-                    <div class="element">
+                    </article>
+                    <article class="element">
                         <img src="./images/belozersk.jpg" alt="Белозерск" class="element__image">
                         <div class="element__footer">
                             <h2 class="element__title">Белозерск</h2>
                             <button type="button" class="element__like"></button>
                         </div>
-                    </div>
-                    <div class="element">
+                    </article>
+                    <article class="element">
                         <img src="./images/monastyr.jpg" alt="Кирилло-Белозерский монастырь" class="element__image">
                         <div class="element__footer">
                             <h2 class="element__title">Кирилло-Белозерский монастырь</h2>
                             <button type="button" class="element__like"></button>
                         </div>
-                    </div>
-                    <div class="element">
+                    </article>
+                    <article class="element">
                         <img src="./images/ustug.jpg" alt="Великий Устюг" class="element__image">
                         <div class="element__footer">
                             <h2 class="element__title">Великий Устюг</h2>
                             <button type="button" class="element__like"></button>
                         </div>
-                    </div>
+                    </article>
                 </section>
             </main>
             <footer class="footer">
@@ -75,9 +75,9 @@
         </div>
         <div class="popup">
             <div class="popup__container">
-                <h1 class="popup__title">Редактировать профиль</h1>
-                <button type="button" class="popup__closebutton"></button>
-                <form class="popup__form">                
+                <h2 class="popup__title">Редактировать профиль</h2>
+                <button type="button" aria-label="Закрыть" class="popup__close-button"></button>
+                <form name="popup-form" class="popup__form">                
                     <input type="text" class="popup__field popup__field_type_name" name="Name" placeholder="Имя" required>
                     <input type="text" class="popup__field popup__field_type_job" name="job" placeholder="Профессия" required>
                     <input type="submit" class="popup__button" value="Сохранить">
