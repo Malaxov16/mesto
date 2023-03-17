@@ -4,11 +4,12 @@
     padding: 0;
     width: 24px;
     height: 24px;
-    background-image: url(../../../images/edit-button.svg);
-    background-size: 24px 24px;
+    background-image: url(../../../images/edit-button1.svg);
+    background-size: 10px 10px;
     background-repeat: no-repeat;
     background-color: transparent;
-    border: 0;
+    background-position: center;
+    border: 1px solid #fff;
     cursor: pointer;
     transition: opacity 0.5s ease-in-out;
 }
@@ -23,7 +24,6 @@
         margin-left: 10px;
         width: 18px;
         height: 18px;
-        background-size: 18px 18px;
-        background-repeat: no-repeat;
+        background-size: 7.5px 7.5px;
     }
 }
