@@ -10,6 +10,7 @@
     border: 2px solid #fff;
     border-radius: 2px;
     cursor: pointer;
+    box-sizing: border-box;
     transition: opacity 0.5s ease-in-out;
 }
 
