@@ -24,48 +24,7 @@
                     <button type="button" aria-label="Добавить" class="profile__add-button"></button>
                 </section>
                 <section class="elements">
-                    <article class="element">
-                        <img src="./images/vologda.jpg" alt="Вологда" class="element__image">
-                        <div class="element__footer">
-                            <h2 class="element__title">Вологда</h2>
-                            <button type="button" class="element__like"></button>
-                        </div>
-                    </article>
-                    <article class="element">
-                        <img src="./images/cherepovets.jpg" alt="Череповец" class="element__image">
-                        <div class="element__footer">
-                            <h2 class="element__title">Череповец</h2>
-                            <button type="button" class="element__like"></button>
-                        </div>
-                    </article>
-                    <article class="element">
-                        <img src="./images/andoma.jpg" alt="Андома гора" class="element__image">
-                        <div class="element__footer">
-                            <h2 class="element__title">Андома гора</h2>
-                            <button type="button" class="element__like"></button>
-                        </div>
-                    </article>
-                    <article class="element">
-                        <img src="./images/belozersk.jpg" alt="Белозерск" class="element__image">
-                        <div class="element__footer">
-                            <h2 class="element__title">Белозерск</h2>
-                            <button type="button" class="element__like"></button>
-                        </div>
-                    </article>
-                    <article class="element">
-                        <img src="./images/monastyr.jpg" alt="Кирилло-Белозерский монастырь" class="element__image">
-                        <div class="element__footer">
-                            <h2 class="element__title">Кирилло-Белозерский монастырь</h2>
-                            <button type="button" class="element__like"></button>
-                        </div>
-                    </article>
-                    <article class="element">
-                        <img src="./images/ustug.jpg" alt="Великий Устюг" class="element__image">
-                        <div class="element__footer">
-                            <h2 class="element__title">Великий Устюг</h2>
-                            <button type="button" class="element__like"></button>
-                        </div>
-                    </article>
+
                 </section>
             </main>
             <footer class="footer">
@@ -73,15 +32,43 @@
             </footer>
 
         </div>
-        <div class="popup">
+        <template id="card">
+            <article class="element">
+                <img class="element__image">
+                <button type="button" aria-label="Удалить" class="element__trash"></button>
+                <div class="element__footer">
+                    <h2 class="element__title"></h2>
+                    <button type="button" class="element__like"></button>
+                </div>
+            </article>
+        </template>
+        <div class="popup popup_edit">
             <div class="popup__container">
                 <h2 class="popup__title">Редактировать профиль</h2>
-                <button type="button" aria-label="Закрыть" class="popup__close-button"></button>
-                <form name="popup-form" class="popup__form">                
+                <button type="button" aria-label="Закрыть" class="popup__close-button popup__close-button_edit"></button>
+                <form name="popup-form" class="popup__form popup__form_edit">                
                     <input type="text" class="popup__field popup__field_type_name" name="Name" placeholder="Имя" required>
                     <input type="text" class="popup__field popup__field_type_job" name="job" placeholder="Профессия" required>
-                    <input type="submit" class="popup__button" value="Сохранить">
+                    <input type="submit" class="popup__button popup__button_edit" value="Сохранить">
                 </form>
+            </div>
+        </div>
+        <div class="popup popup_add">
+            <div class="popup__container">
+                <h2 class="popup__title">Новое место</h2>
+                <button type="button" aria-label="Закрыть" class="popup__close-button popup__close-button_add"></button>
+                <form name="popup-form" class="popup__form popup__form_add">                
+                    <input type="text" class="popup__field popup__field_type_title" name="Title" placeholder="Название" required>
+                    <input type="text" class="popup__field popup__field_type_link" name="link" placeholder="Ссылка на картинку" required>
+                    <input type="submit" class="popup__button popup__button_add" value="Создать">
+                </form>
+            </div>
+        </div>
+        <div class="popup popup_image">
+            <div class="popup__image-container">
+                <img class="popup__image">
+                <button type="button" aria-label="Закрыть" class="popup__close-button popup__close-button_image"></button>
+                <h3 class="popup__image-title"></h3>
             </div>
         </div>
         <script src="./scripts/index.js"></script>
