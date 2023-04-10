@@ -44,3 +44,8 @@
 @import url(../blocks/popup/__image-container/popup__image-container.css);
 @import url(../blocks/popup/__image/popup__image.css);
 @import url(../blocks/popup/__image-title/popup__image-title.css);
+
+@import url(../blocks/popup/__field-error/popup__field-error.css);
+@import url(../blocks/popup/__field/_type/popup__field_type_error.css);
+@import url(../blocks/popup/__field-error/_status/popup__field-error_status_visible.css);
+@import url(../blocks/popup/__button/_status/popup__button_status_disabled.css);

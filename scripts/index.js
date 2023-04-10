@@ -59,17 +59,20 @@ const linkCardInput = formElementAdd.querySelector('.popup__field_type_link'); /
 function openPopup (popupName){
     //отображаем popup
     popupName.classList.add('popup_opened');
+    setListenerOnOverlay(popupName);
 }
 
 //закрываем popup
 function closePopup (popupName) {
     //скрываем popup
+    removeListenerOnOverlay(popupName);
     popupName.classList.remove('popup_opened');
+    formElementAdd.reset();
+    enableValidate();
 }
 
 //открыаем popup для просмотра картинки
 function openPopupImage(clickImg){
-    console.log(clickImg);
     image.src = clickImg.src;
     image.alt = clickImg.alt;
     titleImg.textContent = clickImg.alt;
@@ -118,6 +121,12 @@ function addCard (evt) {
     closePopup(popupAdd);
 }
 
+//const closePopupOverlay = () => {
+//    const popupList = Array.from(document.querySelectorAll('.popup'));
+//    popupList.forEach((popupElement) => {
+//        popupElement.addEventListener('click', function)
+//    })
+//}
 
 initialCards.forEach((item) => createCard(item.name, item.link)); //вставляем предзагружаемые карточки из массива
 
@@ -150,3 +159,26 @@ closeButtonAdd.addEventListener('click', function() {
 closeButtonImage.addEventListener('click', function() {
     closePopup(popupImage)
 }); //обработчик на кнопке Закрыть окна просмотра картинки
+
+const setListenerOnOverlay = (popupName) => {
+    popupName.addEventListener('click', checkClickOnOverlay);
+    document.addEventListener('keydown', checkKeyOnOverlay);
+}
+
+const removeListenerOnOverlay = (popupName) => {
+    popupName.removeEventListener('click', checkClickOnOverlay);
+    document.removeEventListener('keydown', checkKeyOnOverlay);
+}
+
+const checkClickOnOverlay = (evt) => {
+    if (evt.target.classList.contains('popup')) {
+        closePopup(evt.target);
+    }
+}
+
+const checkKeyOnOverlay = (evt) => {
+    const popupName = evt.currentTarget.querySelector('.popup_opened');
+    if (evt.key === 'Escape') {
+        closePopup(popupName);
+    }
+}
