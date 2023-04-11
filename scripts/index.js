@@ -27,8 +27,8 @@ const initialCards = [
   ]; 
 
 
-const formElementEdit = document.querySelector('.popup__form_edit'); // Находим форму редактирования профиля в DOM 
-const formElementAdd = document.querySelector('.popup__form_add'); // получаем форму добавления картинки
+const formElementEdit = document.forms['popup-form-ProfileEdit']; // Находим форму редактирования профиля в DOM 
+const formElementAdd = document.forms['popup-form-NewCard']; // получаем форму добавления картинки
 // Находим поля формы в DOM
 const nameInput = formElementEdit.querySelector('.popup__field_type_name'); // Воспользуйтесь инструментом .querySelector()
 const jobInput = formElementEdit.querySelector('.popup__field_type_job'); // Воспользуйтесь инструментом .querySelector()
@@ -59,16 +59,14 @@ const linkCardInput = formElementAdd.querySelector('.popup__field_type_link'); /
 function openPopup (popupName){
     //отображаем popup
     popupName.classList.add('popup_opened');
-    setListenerOnOverlay(popupName);
+    setCloseListeners(popupName);
 }
 
 //закрываем popup
 function closePopup (popupName) {
     //скрываем popup
-    removeListenerOnOverlay(popupName);
+    removeCloseListeners(popupName);
     popupName.classList.remove('popup_opened');
-    formElementAdd.reset();
-    enableValidate();
 }
 
 //открыаем popup для просмотра картинки
@@ -118,6 +116,7 @@ function createCard(name, path) {
 function addCard (evt) {
     evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
     createCard(nameCardInput.value, linkCardInput.value);
+    evt.target.reset();
     closePopup(popupAdd);
 }
 
@@ -134,8 +133,7 @@ initialCards.forEach((item) => createCard(item.name, item.link)); //вставл
 // он будет следить за событием “submit” - «отправка»
 formElementEdit.addEventListener('submit', editProfile); //обработчик на кнопке "Сохранить"
 formElementAdd.addEventListener('submit', function(evt) {
-    addCard(evt);
-    evt.target.reset();
+    addCard(evt);  
 }); //обработчик на кнопке Сохранить на форме добавления карточки
 
 editButton.addEventListener('click', function() {
@@ -148,7 +146,7 @@ addButton.addEventListener('click', function() {
     openPopup(popupAdd);
 }) //обработчик на кнопке Добавить
 
-closeButtonEdit.addEventListener('click', function() {
+/* closeButtonEdit.addEventListener('click', function() {
     closePopup(popupEdit);
 }); //обработчик на кнопке Закрыть окна редактирвоаняи профиля
 
@@ -158,14 +156,21 @@ closeButtonAdd.addEventListener('click', function() {
 
 closeButtonImage.addEventListener('click', function() {
     closePopup(popupImage)
-}); //обработчик на кнопке Закрыть окна просмотра картинки
+}); //обработчик на кнопке Закрыть окна просмотра картинки */
 
-const setListenerOnOverlay = (popupName) => {
+const closeButtons = document.querySelectorAll('.popup__close-button');
+
+closeButtons.forEach((button) => {
+    const popup = button.closest('.popup');
+    button.addEventListener('click', () => closePopup(popup));
+})
+
+const setCloseListeners = (popupName) => {
     popupName.addEventListener('click', checkClickOnOverlay);
     document.addEventListener('keydown', checkKeyOnOverlay);
 }
 
-const removeListenerOnOverlay = (popupName) => {
+const removeCloseListeners = (popupName) => {
     popupName.removeEventListener('click', checkClickOnOverlay);
     document.removeEventListener('keydown', checkKeyOnOverlay);
 }
@@ -177,8 +182,8 @@ const checkClickOnOverlay = (evt) => {
 }
 
 const checkKeyOnOverlay = (evt) => {
-    const popupName = evt.currentTarget.querySelector('.popup_opened');
     if (evt.key === 'Escape') {
+        const popupName = evt.currentTarget.querySelector('.popup_opened');
         closePopup(popupName);
     }
 }
