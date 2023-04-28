@@ -55,6 +55,49 @@ const elementsPart = document.querySelector('.elements'); //получаем с�
 const nameCardInput = formElementAdd.querySelector('.popup__field_type_title'); //получаем поле Название popup для добавления картинки
 const linkCardInput = formElementAdd.querySelector('.popup__field_type_link'); //получаем поле Ссылка popup для добавления картинки
 
+//создать класс карточки с картинкой
+class Card {
+    constructor(dataCard, templateCardSelector) {
+        this._name = dataCard.name;
+        this._path = dataCard.link;
+        this._templateCardSelector = templateCardSelector;
+    }
+
+    _getTemplate() {
+        const articleImg = document
+        .querySelector(_templateCardSelector)
+        .content
+        .querySelector('.element')
+        .cloneNode(true);
+        return articleImg;
+    }
+    
+    _setEventListeners() {
+        this._articleImg.querySelector('.element__like').addEventListener('click', (evt) => {
+            evt.target.classList.toggle('element__like_active');
+        });
+        this._articleImg.querySelector('.element__trash').addEventListener('click', (evt) => {evt.target.closest('.element').remove()})
+        this._articleImg.addEventListener('click', (evt) => {openPopupImage(evt.target)});
+    }
+
+    _getCard() {
+        const articleImg = this._getTemplate();
+
+        //console.log(articleImg);
+        const elementImg = articleImg.querySelector('.element__image');
+        const elementTitle =articleImg.querySelector('.element__title');
+        elementImg.src = this._path;
+        elementImg.alt = this._name;
+        elementTitle.textContent = this._name;
+        this._articleImg._setEventListeners();
+        return articleImg;
+    }
+
+
+}
+
+
+
 //открываем popup
 function openPopup (popupName){
     //отображаем popup
