@@ -51,9 +51,12 @@ const image = popupImage.querySelector('.popup__image'); //получаем ка
 const titleImg = popupImage.querySelector('.popup__image-title'); //получаем заголовок для картинки в popup
 
 const cardTemplate = document.querySelector('#card').content; //получаем шаблон для создания карточки
+const templateCardSelector = '#card';
+
 const elementsPart = document.querySelector('.elements'); //получаем секцию для карточек
 const nameCardInput = formElementAdd.querySelector('.popup__field_type_title'); //получаем поле Название popup для добавления картинки
 const linkCardInput = formElementAdd.querySelector('.popup__field_type_link'); //получаем поле Ссылка popup для добавления картинки
+
 
 //создать класс карточки с картинкой
 class Card {
@@ -64,33 +67,40 @@ class Card {
     }
 
     _getTemplate() {
-        const articleImg = document
-        .querySelector(_templateCardSelector)
+        this._articleImg = document
+        .querySelector(this._templateCardSelector)
         .content
         .querySelector('.element')
         .cloneNode(true);
-        return articleImg;
+        return this._articleImg;
     }
     
-    _setEventListeners() {
-        this._articleImg.querySelector('.element__like').addEventListener('click', (evt) => {
-            evt.target.classList.toggle('element__like_active');
-        });
-        this._articleImg.querySelector('.element__trash').addEventListener('click', (evt) => {evt.target.closest('.element').remove()})
-        this._articleImg.addEventListener('click', (evt) => {openPopupImage(evt.target)});
+    _onDelete = () => {
+        this._cardImg.remove();
     }
 
-    _getCard() {
-        const articleImg = this._getTemplate();
+    _onLike = () => {
+        this._cardImg.querySelector('.element__like').classList.toggle('element__like_active');
+    }
 
+    _setEventListeners() {
+        this._cardImg.querySelector('.element__like').addEventListener('click', this._onLike);
+        this._cardImg.querySelector('.element__trash').addEventListener('click', this._onDelete);
+        this._cardImg.querySelector('.element__image').addEventListener('click', (evt) => {openPopupImage(evt.target)});
+    }
+
+    getCard() {
+        this._cardImg = this._getTemplate();
+        console.log(this._cardImg);
+        this._setEventListeners();
         //console.log(articleImg);
-        const elementImg = articleImg.querySelector('.element__image');
-        const elementTitle =articleImg.querySelector('.element__title');
+        const elementImg = this._cardImg.querySelector('.element__image');
+        const elementTitle = this._cardImg.querySelector('.element__title');
         elementImg.src = this._path;
         elementImg.alt = this._name;
         elementTitle.textContent = this._name;
-        this._articleImg._setEventListeners();
-        return articleImg;
+        
+        return this._cardImg;
     }
 
 
@@ -151,9 +161,10 @@ function getCard(name, path) {
 }
 
 //функция вставки карточки
-function createCard(name, path) {
-    const articleImg = getCard(name, path);
-    elementsPart.prepend(articleImg);
+function createCard(dataCard, templateCardSelector) {
+    //const articleImg = getCard(name, path);
+    const card = new Card(dataCard, templateCardSelector)
+    elementsPart.prepend(card.getCard());
 }
 
 function addCard (evt) {
@@ -170,7 +181,7 @@ function addCard (evt) {
 //    })
 //}
 
-initialCards.forEach((item) => createCard(item.name, item.link)); //вставляем предзагружаемые карточки из массива
+//initialCards.forEach((item) => createCard(item.name, item.link)); //вставляем предзагружаемые карточки из массива
 
 // Прикрепляем обработчик к форме:
 // он будет следить за событием “submit” - «отправка»
@@ -230,3 +241,9 @@ const checkKeyOnOverlay = (evt) => {
         closePopup(popupName);
     }
 }
+
+
+//код для пошаговой проверки создаваемых классов
+
+
+initialCards.forEach((item) => createCard(item, templateCardSelector));
