@@ -66,6 +66,7 @@ class Card {
         this._templateCardSelector = templateCardSelector;
     }
 
+    //создать пустую заготовку из шаблона для карточки
     _getTemplate() {
         this._articleImg = document
         .querySelector(this._templateCardSelector)
@@ -75,20 +76,24 @@ class Card {
         return this._articleImg;
     }
     
+    //удалить карточку
     _onDelete = () => {
         this._cardImg.remove();
     }
 
+    //изменить состояние кнопки "нравится"
     _onLike = () => {
         this._cardImg.querySelector('.element__like').classList.toggle('element__like_active');
     }
 
+    //установить слушатели на кнопку удаления карточки, кнопку нравится и картинку
     _setEventListeners() {
         this._cardImg.querySelector('.element__like').addEventListener('click', this._onLike);
         this._cardImg.querySelector('.element__trash').addEventListener('click', this._onDelete);
         this._cardImg.querySelector('.element__image').addEventListener('click', (evt) => {openPopupImage(evt.target)});
     }
 
+    //вернуть готовую карточку
     getCard() {
         this._cardImg = this._getTemplate();
         console.log(this._cardImg);
@@ -102,8 +107,6 @@ class Card {
         
         return this._cardImg;
     }
-
-
 }
 
 
