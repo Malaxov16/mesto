@@ -96,7 +96,6 @@ class Card {
     //вернуть готовую карточку
     getCard() {
         this._cardImg = this._getTemplate();
-        console.log(this._cardImg);
         this._setEventListeners();
         //console.log(articleImg);
         const elementImg = this._cardImg.querySelector('.element__image');
