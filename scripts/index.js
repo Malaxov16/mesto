@@ -1,4 +1,26 @@
+import Card from "./Card.js";
+import FormValidator from "./FormValidator.js";
 
+
+//------------------------------------------------------------
+//переменные для проверки форм
+const validArguments = {
+    formSelector: '.popup__form',
+    inputSelector: '.popup__field',
+    submitButtonSelector: '.popup__button',
+    inactiveButtonClass: 'popup__button_status_disabled',
+    inputErrorClass: 'popup__field_type_error',
+    errorVisibleClass: 'popup__field-error_status_visible'
+}; 
+
+const formEdit = document.querySelector('.popup__form_edit'); //получаем форму редактирования профиля
+const formAdd = document.querySelector('.popup__form_add'); // получаем форму добавления картинки
+
+
+//--------------------------------------------------------------
+//переменные для добавления карточек
+
+//предзагруженные карточки
 const initialCards = [
     {
       name: 'Вологда',
@@ -27,6 +49,7 @@ const initialCards = [
   ]; 
 
 
+
 const formElementEdit = document.forms['popup-form-ProfileEdit']; // Находим форму редактирования профиля в DOM 
 const formElementAdd = document.forms['popup-form-NewCard']; // получаем форму добавления картинки
 // Находим поля формы в DOM
@@ -37,7 +60,7 @@ const closeButtonEdit = document.querySelector('.popup__close-button_edit'); //�
 const addButton = document.querySelector('.profile__add-button'); //получаем кнопку для добавления картинки
 const closeButtonAdd = document.querySelector('.popup__close-button_add'); //получаем кнопку закрытия окна добавления картинки
 const closeButtonImage = document.querySelector('.popup__close-button_image') //получаем кнопку закрытия popup для просмотра картинки
-
+const closeButtons = document.querySelectorAll('.popup__close-button');
 // Обработчик «отправки» формы, хотя пока
 // она никуда отправляться не будет
 const popupEdit = document.querySelector('.popup_edit'); //получаем popup
@@ -57,58 +80,8 @@ const elementsPart = document.querySelector('.elements'); //получаем с�
 const nameCardInput = formElementAdd.querySelector('.popup__field_type_title'); //получаем поле Название popup для добавления картинки
 const linkCardInput = formElementAdd.querySelector('.popup__field_type_link'); //получаем поле Ссылка popup для добавления картинки
 
-
-//создать класс карточки с картинкой
-class Card {
-    constructor(dataCard, templateCardSelector) {
-        this._name = dataCard.name;
-        this._path = dataCard.link;
-        this._templateCardSelector = templateCardSelector;
-    }
-
-    //создать пустую заготовку из шаблона для карточки
-    _getTemplate() {
-        this._articleImg = document
-        .querySelector(this._templateCardSelector)
-        .content
-        .querySelector('.element')
-        .cloneNode(true);
-        return this._articleImg;
-    }
-    
-    //удалить карточку
-    _onDelete = () => {
-        this._cardImg.remove();
-    }
-
-    //изменить состояние кнопки "нравится"
-    _onLike = () => {
-        this._cardImg.querySelector('.element__like').classList.toggle('element__like_active');
-    }
-
-    //установить слушатели на кнопку удаления карточки, кнопку нравится и картинку
-    _setEventListeners() {
-        this._cardImg.querySelector('.element__like').addEventListener('click', this._onLike);
-        this._cardImg.querySelector('.element__trash').addEventListener('click', this._onDelete);
-        this._cardImg.querySelector('.element__image').addEventListener('click', (evt) => {openPopupImage(evt.target)});
-    }
-
-    //вернуть готовую карточку
-    getCard() {
-        this._cardImg = this._getTemplate();
-        this._setEventListeners();
-        //console.log(articleImg);
-        const elementImg = this._cardImg.querySelector('.element__image');
-        const elementTitle = this._cardImg.querySelector('.element__title');
-        elementImg.src = this._path;
-        elementImg.alt = this._name;
-        elementTitle.textContent = this._name;
-        
-        return this._cardImg;
-    }
-}
-
-
+//------------------------------------------------------------
+//раздел карточек и попапов
 
 //открываем popup
 function openPopup (popupName){
@@ -122,6 +95,7 @@ function closePopup (popupName) {
     //скрываем popup
     removeCloseListeners(popupName);
     popupName.classList.remove('popup_opened');
+    resetTextErrorPopup(popupName); //сброс текста ошибки при закрытии popup редактирования профиля без сохранения
 }
 
 //открыаем popup для просмотра картинки
@@ -135,31 +109,9 @@ function openPopupImage(clickImg){
 //сохраняем данные из формы popup
 function editProfile (evt) {
     evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
-    // Так мы можем определить свою логику отправки.
-    // О том, как это делать, расскажем позже.
-    // Получите значение полей jobInput и nameInput из свойства value
-    // Выберите элементы, куда должны быть вставлены значения полей
-    // Вставьте новые значения с помощью textContent
     profileName.textContent = nameInput.value;
     profileJob.textContent = jobInput.value;
     closePopup(popupEdit);
-}
-
-//функция создания карточки
-function getCard(name, path) {
-    const articleImg = cardTemplate.querySelector('.element').cloneNode(true);
-    //console.log(articleImg);
-    const elementImg = articleImg.querySelector('.element__image');
-    const elementTitle =articleImg.querySelector('.element__title');
-    elementImg.src = path;
-    elementImg.alt = name;
-    elementTitle.textContent = name;
-    articleImg.querySelector('.element__like').addEventListener('click', (evt) => {
-        evt.target.classList.toggle('element__like_active');
-    });
-    articleImg.querySelector('.element__trash').addEventListener('click', (evt) => {evt.target.closest('.element').remove()})
-    elementImg.addEventListener('click', (evt) => {openPopupImage(evt.target)});
-    return articleImg;
 }
 
 //функция вставки карточки
@@ -169,27 +121,22 @@ function createCard(dataCard, templateCardSelector) {
     elementsPart.prepend(card.getCard());
 }
 
-function addCard (evt) {
-    evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
-    createCard(nameCardInput.value, linkCardInput.value);
+function addCard (evt, dataAddCard, templateCardSelector) {
+    evt.preventDefault();
+    createCard(dataAddCard, templateCardSelector);
     evt.target.reset();
     closePopup(popupAdd);
 }
-
-//const closePopupOverlay = () => {
-//    const popupList = Array.from(document.querySelectorAll('.popup'));
-//    popupList.forEach((popupElement) => {
-//        popupElement.addEventListener('click', function)
-//    })
-//}
-
-//initialCards.forEach((item) => createCard(item.name, item.link)); //вставляем предзагружаемые карточки из массива
 
 // Прикрепляем обработчик к форме:
 // он будет следить за событием “submit” - «отправка»
 formElementEdit.addEventListener('submit', editProfile); //обработчик на кнопке "Сохранить"
 formElementAdd.addEventListener('submit', function(evt) {
-    addCard(evt);  
+    const dataAddCard = {
+        name : nameCardInput.value,
+        link : linkCardInput.value,
+    };
+    addCard(evt, dataAddCard, templateCardSelector);  
 }); //обработчик на кнопке Сохранить на форме добавления карточки
 
 editButton.addEventListener('click', function() {
@@ -201,20 +148,6 @@ editButton.addEventListener('click', function() {
 addButton.addEventListener('click', function() { 
     openPopup(popupAdd);
 }) //обработчик на кнопке Добавить
-
-/* closeButtonEdit.addEventListener('click', function() {
-    closePopup(popupEdit);
-}); //обработчик на кнопке Закрыть окна редактирвоаняи профиля
-
-closeButtonAdd.addEventListener('click', function() {
-    closePopup(popupAdd);
-}); //обработчик на кнопке Закрыть окна добавления карточки
-
-closeButtonImage.addEventListener('click', function() {
-    closePopup(popupImage)
-}); //обработчик на кнопке Закрыть окна просмотра картинки */
-
-const closeButtons = document.querySelectorAll('.popup__close-button');
 
 closeButtons.forEach((button) => {
     const popup = button.closest('.popup');
@@ -245,7 +178,26 @@ const checkKeyOnOverlay = (evt) => {
 }
 
 
-//код для пошаговой проверки создаваемых классов
-
-
+//создаем предзагруженные карточки
 initialCards.forEach((item) => createCard(item, templateCardSelector));
+
+
+//--------------------------------------------------------------------------
+//раздел проверки форм
+
+//создаем экземпляр класса для каждой формы
+const formEditValidator = new FormValidator(validArguments, formEdit);
+const formAddValidator = new FormValidator(validArguments, formAdd);
+
+//вызываем метод экземпляра класса
+formEditValidator.enableValidation();
+formAddValidator.enableValidation();
+
+//выполняется сброс ошибки для popup редактирвоания профиля
+const resetTextErrorPopup = function(popupName) {
+    if (popupName.classList.contains('popup_edit')) {
+        formEditValidator.resetTextError();
+    };
+}
+
+export {openPopupImage};
