@@ -24,12 +24,6 @@ export default class FormValidator {
         this._errorElement.classList.remove(this._validArguments.errorVisibleClass); //показываем элемент с текстом ошибки
     }
 
-    resetTextError () {
-        this._inputList.forEach((inputElement) => {
-            this._hideError(inputElement);
-        })
-    }
-
     //метод выполняет проверку на корректность заполнения поля
     _checkInputValidity (inputElement) {
         //console.log(inputElement.validity.valid);

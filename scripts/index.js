@@ -95,7 +95,6 @@ function closePopup (popupName) {
     //скрываем popup
     removeCloseListeners(popupName);
     popupName.classList.remove('popup_opened');
-    resetTextErrorPopup(popupName); //сброс текста ошибки при закрытии popup редактирования профиля без сохранения
 }
 
 //открыаем popup для просмотра картинки
@@ -106,6 +105,7 @@ function openPopupImage(clickImg){
     openPopup(popupImage);
 }
 
+
 //сохраняем данные из формы popup
 function editProfile (evt) {
     evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
@@ -115,28 +115,31 @@ function editProfile (evt) {
 }
 
 //функция вставки карточки
-function createCard(dataCard, templateCardSelector) {
+function createCard(dataCard, templateCardSelector, openPopupImage) {
     //const articleImg = getCard(name, path);
-    const card = new Card(dataCard, templateCardSelector)
-    elementsPart.prepend(card.getCard());
+    const card = new Card(dataCard, templateCardSelector, openPopupImage);
+    const cardElement = card.getCard();
+    return cardElement;
+    
 }
 
-function addCard (evt, dataAddCard, templateCardSelector) {
-    evt.preventDefault();
-    createCard(dataAddCard, templateCardSelector);
-    evt.target.reset();
-    closePopup(popupAdd);
+function addCard (dataAddCard, templateCardSelector) {
+    const cardElement = createCard(dataAddCard, templateCardSelector, openPopupImage);
+    elementsPart.prepend(cardElement);
 }
 
 // Прикрепляем обработчик к форме:
 // он будет следить за событием “submit” - «отправка»
 formElementEdit.addEventListener('submit', editProfile); //обработчик на кнопке "Сохранить"
 formElementAdd.addEventListener('submit', function(evt) {
+    evt.preventDefault();
     const dataAddCard = {
         name : nameCardInput.value,
         link : linkCardInput.value,
     };
-    addCard(evt, dataAddCard, templateCardSelector);  
+    addCard(dataAddCard, templateCardSelector);
+    evt.target.reset();
+    closePopup(popupAdd);
 }); //обработчик на кнопке Сохранить на форме добавления карточки
 
 editButton.addEventListener('click', function() {
@@ -179,7 +182,7 @@ const checkKeyOnOverlay = (evt) => {
 
 
 //создаем предзагруженные карточки
-initialCards.forEach((item) => createCard(item, templateCardSelector));
+initialCards.forEach((item) => addCard(item, templateCardSelector, openPopupImage));
 
 
 //--------------------------------------------------------------------------
@@ -192,12 +195,3 @@ const formAddValidator = new FormValidator(validArguments, formAdd);
 //вызываем метод экземпляра класса
 formEditValidator.enableValidation();
 formAddValidator.enableValidation();
-
-//выполняется сброс ошибки для popup редактирвоания профиля
-const resetTextErrorPopup = function(popupName) {
-    if (popupName.classList.contains('popup_edit')) {
-        formEditValidator.resetTextError();
-    };
-}
-
-export {openPopupImage};
