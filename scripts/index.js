@@ -1,5 +1,7 @@
 import Card from "./Card.js";
 import FormValidator from "./FormValidator.js";
+import Section from "./Section.js";
+import PopupWithImage from "./PopupWithImage.js";
 
 
 //------------------------------------------------------------
@@ -76,9 +78,13 @@ const titleImg = popupImage.querySelector('.popup__image-title'); //получа
 const cardTemplate = document.querySelector('#card').content; //получаем шаблон для создания карточки
 const templateCardSelector = '#card';
 
+
 const elementsPart = document.querySelector('.elements'); //получаем секцию для карточек
 const nameCardInput = formElementAdd.querySelector('.popup__field_type_title'); //получаем поле Название popup для добавления картинки
 const linkCardInput = formElementAdd.querySelector('.popup__field_type_link'); //получаем поле Ссылка popup для добавления картинки
+
+//селекторы
+const containerCardSelector = '.elements';
 
 //------------------------------------------------------------
 //раздел карточек и попапов
@@ -128,16 +134,32 @@ function addCard (dataAddCard, templateCardSelector) {
     elementsPart.prepend(cardElement);
 }
 
+const popupWithImage = new PopupWithImage('.popup_image');
+
+
+//создание экземпляра класса section
+const userCardList = new Section({
+    items: initialCards,
+    renderer: (item) => {
+        const card = new Card(item, templateCardSelector, openPopupImage);
+        const cardElement = card.getCard();
+        userCardList.addItem(cardElement);
+        }
+    },
+    containerCardSelector
+    )
+
 // Прикрепляем обработчик к форме:
 // он будет следить за событием “submit” - «отправка»
 formElementEdit.addEventListener('submit', editProfile); //обработчик на кнопке "Сохранить"
 formElementAdd.addEventListener('submit', function(evt) {
     evt.preventDefault();
-    const dataAddCard = {
+    const dataAddCard = Array.from({
         name : nameCardInput.value,
         link : linkCardInput.value,
-    };
+    }) ;
     addCard(dataAddCard, templateCardSelector);
+
     evt.target.reset();
     closePopup(popupAdd);
 }); //обработчик на кнопке Сохранить на форме добавления карточки
@@ -152,15 +174,15 @@ addButton.addEventListener('click', function() {
     openPopup(popupAdd);
 }) //обработчик на кнопке Добавить
 
-closeButtons.forEach((button) => {
-    const popup = button.closest('.popup');
-    button.addEventListener('click', () => closePopup(popup));
-})
+// closeButtons.forEach((button) => {
+//     const popup = button.closest('.popup');
+//     button.addEventListener('click', () => closePopup(popup));
+// })
 
-const setCloseListeners = (popupName) => {
-    popupName.addEventListener('click', checkClickOnOverlay);
-    document.addEventListener('keydown', checkKeyOnOverlay);
-}
+// const setCloseListeners = (popupName) => {
+//     popupName.addEventListener('click', checkClickOnOverlay);
+//     document.addEventListener('keydown', checkKeyOnOverlay);
+// }
 
 const removeCloseListeners = (popupName) => {
     popupName.removeEventListener('click', checkClickOnOverlay);
@@ -182,8 +204,8 @@ const checkKeyOnOverlay = (evt) => {
 
 
 //создаем предзагруженные карточки
-initialCards.forEach((item) => addCard(item, templateCardSelector, openPopupImage));
-
+//initialCards.forEach((item) => addCard(item, templateCardSelector, openPopupImage));
+userCardList.rendererItems();
 
 //--------------------------------------------------------------------------
 //раздел проверки форм
