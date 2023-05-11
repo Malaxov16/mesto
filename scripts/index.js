@@ -141,7 +141,10 @@ const popupWithImage = new PopupWithImage('.popup_image');
 const userCardList = new Section({
     items: initialCards,
     renderer: (item) => {
-        const card = new Card(item, templateCardSelector, openPopupImage);
+        const card = new Card(item, templateCardSelector, 
+            openPopup = (evt) => {
+                popupWithImage.open(evt);
+            });
         const cardElement = card.getCard();
         userCardList.addItem(cardElement);
         }
