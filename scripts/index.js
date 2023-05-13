@@ -2,6 +2,8 @@ import Card from "./Card.js";
 import FormValidator from "./FormValidator.js";
 import Section from "./Section.js";
 import PopupWithImage from "./PopupWithImage.js";
+import PopupWithForm from "./PopupWithForm.js";
+import UserInfo from "./UserInfo.js";
 
 
 //------------------------------------------------------------
@@ -113,12 +115,12 @@ function openPopupImage(clickImg){
 
 
 //сохраняем данные из формы popup
-function editProfile (evt) {
-    evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
-    profileName.textContent = nameInput.value;
-    profileJob.textContent = jobInput.value;
-    closePopup(popupEdit);
-}
+// function editProfile (dataForm) {
+//     //evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
+//     profileName.textContent = dataForm.name;
+//     profileJob.textContent = dataForm.job;
+//     //closePopup(popupEdit);
+// }
 
 //функция вставки карточки
 function createCard(dataCard, templateCardSelector, openPopupImage) {
@@ -134,8 +136,22 @@ function addCard (dataAddCard, templateCardSelector) {
     elementsPart.prepend(cardElement);
 }
 
-const popupWithImage = new PopupWithImage('.popup_image');
+//создание объекта экземпляра класса для данных профиля
+const userInfo = new UserInfo({
+    elementNameSelector: '.profile__name',
+    elementJobSelector: '.profile__job'});
 
+//создание popup для добавления картинки
+const popupWithImage = new PopupWithImage('.popup_image');
+popupWithImage.setEventListeners();
+
+//создание Popup для формы редактирования профиля
+const popupWithFormEdit = new PopupWithForm('.popup_edit', (dataForm) => {
+    userInfo.setUserInfo(dataForm);
+});
+popupWithFormEdit.setEventListeners();
+
+const popupWithFormAdd = new PopupWithForm('.popup_add');
 
 //создание экземпляра класса section
 const userCardList = new Section({
@@ -149,12 +165,11 @@ const userCardList = new Section({
         userCardList.addItem(cardElement);
         }
     },
-    containerCardSelector
-    )
+    containerCardSelector)
 
 // Прикрепляем обработчик к форме:
 // он будет следить за событием “submit” - «отправка»
-formElementEdit.addEventListener('submit', editProfile); //обработчик на кнопке "Сохранить"
+//formElementEdit.addEventListener('submit', editProfile); //обработчик на кнопке "Сохранить"
 formElementAdd.addEventListener('submit', function(evt) {
     evt.preventDefault();
     const dataAddCard = Array.from({
@@ -168,14 +183,14 @@ formElementAdd.addEventListener('submit', function(evt) {
 }); //обработчик на кнопке Сохранить на форме добавления карточки
 
 editButton.addEventListener('click', function() {
-    nameInput.value = profileName.textContent;
-    jobInput.value = profileJob.textContent;
-    openPopup(popupEdit);
+    popupWithFormEdit.setInputValues(userInfo.getUserInfo());
+    popupWithFormEdit.open();
+    
 }); //обработчик на кнопке Редаткировать
 
-addButton.addEventListener('click', function() { 
-    openPopup(popupAdd);
-}) //обработчик на кнопке Добавить
+// addButton.addEventListener('click', (evt) => {
+//     popupWithFormAdd.open();
+// }) //обработчик на кнопке Добавить
 
 // closeButtons.forEach((button) => {
 //     const popup = button.closest('.popup');
