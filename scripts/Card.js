@@ -1,9 +1,9 @@
 
 //создать класс карточки с картинкой
 export default class Card {
-    constructor(dataCard, templateCardSelector, openPopupImage) {
-        this._name = dataCard.name;
-        this._path = dataCard.link;
+    constructor({name, link}, templateCardSelector, openPopupImage) {
+        this._name = name;
+        this._link = link;
         this._templateCardSelector = templateCardSelector;
         this._openPopupImage = openPopupImage;
     }
@@ -26,7 +26,7 @@ export default class Card {
         this._imageElement = this._cardImg.querySelector('.element__image');
         this._setEventListeners();
         this._elementTitle = this._cardImg.querySelector('.element__title');
-        this._imageElement.src = this._path;
+        this._imageElement.src = this._link;
         this._imageElement.alt = this._name;
         this._elementTitle.textContent = this._name;
         return this._cardImg;
