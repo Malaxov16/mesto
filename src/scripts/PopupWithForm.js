@@ -33,6 +33,7 @@ export default class PopupWithForm extends Popup {
 
     close() {
         super.close();
+        document.removeEventListener('keydown', this._handleEscClose);
         this._form.reset();
     }
 }

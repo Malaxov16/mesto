@@ -1,9 +1,10 @@
-import Card from "./Card.js";
-import FormValidator from "./FormValidator.js";
-import Section from "./Section.js";
-import PopupWithImage from "./PopupWithImage.js";
-import PopupWithForm from "./PopupWithForm.js";
-import UserInfo from "./UserInfo.js";
+import Card from "./scripts/Card.js";
+import FormValidator from "./scripts/FormValidator.js";
+import Section from "./scripts/Section.js";
+import PopupWithImage from "./scripts/PopupWithImage.js";
+import PopupWithForm from "./scripts/PopupWithForm.js";
+import UserInfo from "./scripts/UserInfo.js";
+import "./pages/index.css";
 
 
 //------------------------------------------------------------
@@ -23,32 +24,37 @@ const formAdd = document.querySelector('.popup__form_add'); // получаем 
 
 //--------------------------------------------------------------
 //переменные для добавления карточек
-
+const vologdaImage = new URL('./images/vologda.jpg', import.meta.url);
+const cherepovetsImage = new URL('./images/cherepovets.jpg', import.meta.url);
+const andomaImage = new URL('./images/andoma.jpg', import.meta.url);
+const belozerskImage = new URL('./images/belozersk.jpg', import.meta.url);
+const monastyrImage = new URL('./images/monastyr.jpg', import.meta.url);
+const ustugImage = new URL('./images/ustug.jpg', import.meta.url);
 //предзагруженные карточки
 const initialCards = [
     {
       name: 'Вологда',
-      link: './images/vologda.jpg'
+      link: vologdaImage
     },
     {
       name: 'Череповец',
-      link: './images/cherepovets.jpg'
+      link: cherepovetsImage
     },
     {
       name: 'Андома гора',
-      link: './images/andoma.jpg'
+      link: andomaImage
     },
     {
       name: 'Белозерск',
-      link: './images/belozersk.jpg'
+      link: belozerskImage
     },
     {
       name: 'Кирилло-Белозерский монастырь',
-      link: './images/monastyr.jpg'
+      link: monastyrImage
     },
     {
       name: 'Великий Устюг',
-      link: './images/ustug.jpg'
+      link: ustugImage
     }
   ]; 
 
