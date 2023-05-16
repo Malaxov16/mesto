@@ -6,64 +6,7 @@ import PopupWithForm from "./scripts/PopupWithForm.js";
 import UserInfo from "./scripts/UserInfo.js";
 import "./pages/index.css";
 
-
-//------------------------------------------------------------
-//переменные для проверки форм
-const validArguments = {
-    formSelector: '.popup__form',
-    inputSelector: '.popup__field',
-    submitButtonSelector: '.popup__button',
-    inactiveButtonClass: 'popup__button_status_disabled',
-    inputErrorClass: 'popup__field_type_error',
-    errorVisibleClass: 'popup__field-error_status_visible'
-}; 
-
-const formEdit = document.querySelector('.popup__form_edit'); //получаем форму редактирования профиля
-const formAdd = document.querySelector('.popup__form_add'); // получаем форму добавления картинки
-
-
-//--------------------------------------------------------------
-//переменные для добавления карточек
-const vologdaImage = new URL('./images/vologda.jpg', import.meta.url);
-const cherepovetsImage = new URL('./images/cherepovets.jpg', import.meta.url);
-const andomaImage = new URL('./images/andoma.jpg', import.meta.url);
-const belozerskImage = new URL('./images/belozersk.jpg', import.meta.url);
-const monastyrImage = new URL('./images/monastyr.jpg', import.meta.url);
-const ustugImage = new URL('./images/ustug.jpg', import.meta.url);
-//предзагруженные карточки
-const initialCards = [
-    {
-      name: 'Вологда',
-      link: vologdaImage
-    },
-    {
-      name: 'Череповец',
-      link: cherepovetsImage
-    },
-    {
-      name: 'Андома гора',
-      link: andomaImage
-    },
-    {
-      name: 'Белозерск',
-      link: belozerskImage
-    },
-    {
-      name: 'Кирилло-Белозерский монастырь',
-      link: monastyrImage
-    },
-    {
-      name: 'Великий Устюг',
-      link: ustugImage
-    }
-  ]; 
-
-const editButton = document.querySelector('.profile__edit-button'); //получаем кнопку редактирования
-const addButton = document.querySelector('.profile__add-button'); //получаем кнопку для добавления картинки
-
-//селекторы
-const containerCardSelector = '.elements';
-const templateCardSelector = '#card';
+import {validArguments, formEdit, formAdd, initialCards, editButton, addButton, containerCardSelector, templateCardSelector} from "./utils/constants.js";
 
 //------------------------------------------------------------
 //раздел карточек и попапов
@@ -71,6 +14,13 @@ const templateCardSelector = '#card';
 //открыаем popup для просмотра картинки
 function handleCardClick(clickImg){
     popupWithImage.open(clickImg);
+}
+
+//функция создания карточки с картинкой
+const createCard = (dataCard) => {
+  const card = new Card(dataCard, templateCardSelector, handleCardClick);
+  const cardElement = card.getCard();
+  return cardElement;
 }
 
 //создание объекта экземпляра класса для данных профиля
@@ -92,8 +42,7 @@ popupWithFormEdit.setEventListeners();
 const userCardList = new Section({
     items: initialCards,
     renderer: (item) => {
-        const card = new Card(item, templateCardSelector, handleCardClick);
-        const cardElement = card.getCard();
+        const cardElement = createCard(item);
         userCardList.addItem(cardElement);
         }
     },
@@ -104,8 +53,7 @@ userCardList.rendererItems();
 
 //создание экземпляра PopupWithForm для редактирования профиля
 const popupWithFormAdd = new PopupWithForm('.popup_add', (dataForm) => {
-    const addCard = new Card(dataForm, templateCardSelector, handleCardClick);
-    const addCardElement = addCard.getCard();
+    const addCardElement = createCard(dataForm);
     userCardList.addItem(addCardElement);
 });
 popupWithFormAdd.setEventListeners();
