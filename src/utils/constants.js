@@ -1,3 +1,12 @@
+//-----------------------------------------------------------
+//переменные для API
+
+export const url ='https://mesto.nomoreparties.co/v1';
+export const token = '65030b11-a098-4fca-8c1e-d19742aac010';
+export const cohortId = 'cohort-66';
+
+
+
 //------------------------------------------------------------
 //переменные для проверки форм
 export const validArguments = {
@@ -11,7 +20,7 @@ export const validArguments = {
 
 export const formEdit = document.querySelector('.popup__form_edit'); //получаем форму редактирования профиля
 export const formAdd = document.querySelector('.popup__form_add'); // получаем форму добавления картинки
-
+export const formAvatar = document.querySelector('.popup__form_avatar'); //получаем форму для загрузки аватара
 
 //--------------------------------------------------------------
 //переменные для добавления карточек
@@ -21,6 +30,7 @@ export const andomaImage = new URL('../images/andoma.jpg', import.meta.url);
 export const belozerskImage = new URL('../images/belozersk.jpg', import.meta.url);
 export const monastyrImage = new URL('../images/monastyr.jpg', import.meta.url);
 export const ustugImage = new URL('../images/ustug.jpg', import.meta.url);
+
 //предзагруженные карточки
 export const initialCards = [
     {
@@ -51,7 +61,12 @@ export const initialCards = [
 
 export const editButton = document.querySelector('.profile__edit-button'); //получаем кнопку редактирования
 export const addButton = document.querySelector('.profile__add-button'); //получаем кнопку для добавления картинки
+export const avatarElement = document.querySelector('.profile__avatar')
 
 //селекторы
 export const containerCardSelector = '.elements';
 export const templateCardSelector = '#card';
+
+//--------------------------------------------------
+//прочие переменные
+export let userId = null; //глобальная переменная для сохранения ID пользователя из возвращенного ответа API

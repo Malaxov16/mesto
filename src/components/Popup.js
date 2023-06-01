@@ -3,8 +3,6 @@ export default class Popup {
         this._popupSelector = popupSelector;
         this._popup = document.querySelector(popupSelector);
         this._closeButtonPopup = this._popup.querySelector('.popup__close-button');
-        this._imagePopup = this._popup.querySelector('.popup__image');
-        this._titleImage = this._popup.querySelector('.popup__image-title');
     }
 
     open () {
@@ -35,8 +33,4 @@ export default class Popup {
         
     }
 
-    // _removeEventListeners() {
-    //     this._popup.removeEventListener('click', this._clickOverlayClose);
-    //     document.removeEventListener('keydown', this._handleEscClose);
-    // }
 }

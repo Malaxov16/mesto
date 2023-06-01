@@ -7,6 +7,8 @@ export default class PopupWithForm extends Popup {
         this._submitForm = submitForm;
         this._inputList = Array.from(this._form.querySelectorAll('.popup__field'));
         this._dataForm = {};
+        this._submitButton = this._form.querySelector('.popup__button');
+        this._valueButton = this._submitButton.getAttribute('value');
     }
 
     _getInputValues() {
@@ -34,5 +36,13 @@ export default class PopupWithForm extends Popup {
     close() {
         super.close();
         this._form.reset();
+    }
+
+    showLoadStatus(isLoading, statusText = '') {
+        if (isLoading) {
+            this._submitButton.setAttribute('value', statusText)
+        } else {
+            this._submitButton.setAttribute('value', this._valueButton)
+        }
     }
 }

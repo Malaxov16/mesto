@@ -16,13 +16,13 @@
             </header>
             <main class="main">
                 <section class="profile">
-                    <img src="<%=require('./images/avatar.jpg')%>" alt="аватар" class="profile__avatar">
+                    <div class="profile__avatar"></div>
                     <div class="profile__profile-info">
                         <div class="profile__name-edit">
-                            <h1 class="profile__name">Жак-Ив Кусто</h1>
+                            <h1 class="profile__name"></h1>
                             <button type="button" aria-label="Редактировать" class="profile__edit-button"></button>
                         </div>
-                        <p class="profile__job">Исследователь океана</p>
+                        <p class="profile__job"></p>
                     </div>
                     <button type="button" aria-label="Добавить" class="profile__add-button"></button>
                 </section>
@@ -41,7 +41,10 @@
                 <button type="button" aria-label="Удалить" class="element__trash"></button>
                 <div class="element__footer">
                     <h2 class="element__title"></h2>
-                    <button type="button" class="element__like"></button>
+                    <div class="element__like-group">
+                        <button type="button" class="element__like"></button>
+                        <p class="element__like-counter">0</p>
+                    </div>
                 </div>
             </article>
         </template>
@@ -50,9 +53,9 @@
                 <h2 class="popup__title">Редактировать профиль</h2>
                 <button type="button" aria-label="Закрыть" class="popup__close-button popup__close-button_edit"></button>
                 <form name="popup-form-ProfileEdit" class="popup__form popup__form_edit">                
-                    <input type="text" id="popup__field-error_name" class="popup__field popup__field_type_name" name="nameUser" placeholder="Имя" minlength="2" maxlength="40" required>
+                    <input type="text" id="popup__field-error_name" class="popup__field popup__field_type_name" name="name" placeholder="Имя" minlength="2" maxlength="40" required>
                     <span class="popup__field-error popup__field-error_name-error"></span>
-                    <input type="text" class="popup__field popup__field_type_job" id="popup__field-error_job" name="job" placeholder="Профессия" minlength="2" maxlength="200" required>
+                    <input type="text" class="popup__field popup__field_type_job" id="popup__field-error_job" name="about" placeholder="Профессия" minlength="2" maxlength="200" required>
                     <span class="popup__field-error popup__field-error_job-error"></span>
                     <input type="submit" class="popup__button popup__button_edit" value="Сохранить">
                 </form>
@@ -76,6 +79,26 @@
                 <img class="popup__image">
                 <button type="button" aria-label="Закрыть" class="popup__close-button popup__close-button_image"></button>
                 <h3 class="popup__image-title"></h3>
+            </div>
+        </div>
+        <div class="popup popup_delete-image-confirm">
+            <div class="popup__container">
+                <button type="button" aria-label="Закрыть" class="popup__close-button popup__close-button_delete"></button>
+                <h2 class="popup__title popup__title_delete-image-confirm">Вы уверены?</h2>
+                <form name="popup-delete-image-confirm" class="popup__form popup__form_delete">
+                    <input type="submit" value="Да" class="popup__button popup__button_delete-image-confirm">
+                </form>
+            </div>
+        </div>
+        <div class="popup popup_avatar-edit">
+            <div class="popup__container">
+                <button type="button" aria-label="Закрыть" class="popup__close-button popup__close-button_avatar"></button>
+                <h2 class="popup__title">Обновить аватар</h2>
+                <form name="popup-form-avatar" class="popup__form popup__form_avatar">
+                    <input type="url"  id="popup__field-error_avatar" class="popup__field popup__field_type_link" name="link" placeholder="Ссылка на аватар" required>
+                    <span class="popup__field-error popup__field-error_avatar-error"></span> 
+                    <input type="submit" value="Сохранить" class="popup__button popup__button_avatar">
+                </form>
             </div>
         </div>
 
