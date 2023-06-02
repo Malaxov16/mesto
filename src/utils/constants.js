@@ -4,6 +4,10 @@
 export const url ='https://mesto.nomoreparties.co/v1';
 export const token = '65030b11-a098-4fca-8c1e-d19742aac010';
 export const cohortId = 'cohort-66';
+export const headers = {
+    authorization: '65030b11-a098-4fca-8c1e-d19742aac010',
+    'content-type': 'application/json'
+}
 
 
 
@@ -70,3 +74,15 @@ export const templateCardSelector = '#card';
 //--------------------------------------------------
 //прочие переменные
 export let userId = null; //глобальная переменная для сохранения ID пользователя из возвращенного ответа API
+
+
+//функция обработки submit для экземпляров popup
+export const handleSubmit = (request, popupInstance, statusText = 'Сохранение...') => {
+  popupInstance.showLoadStatus(true, statusText);
+  request()
+      .then(() => {
+          popupInstance.close();
+      })
+      .catch(err => console.log('Ошибка: ' + err))
+      .finally(() => {popupInstance.showLoadStatus(false)});
+}

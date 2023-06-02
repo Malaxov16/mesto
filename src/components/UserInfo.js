@@ -16,9 +16,9 @@ export default class UserInfo {
         return this._userInfo
     }
 
-    setUserInfo(userInfo) {
-        this._nameElement.textContent = userInfo.name;  //ранее .nameUser
-        this._jobElement.textContent = userInfo.about;    //ранее .job
+    setUserInfo({name, about}) {
+        this._nameElement.textContent = name;  //ранее .nameUser
+        this._jobElement.textContent = about;    //ранее .job
     }
 
     // loadUserInfo(userInfo) {
